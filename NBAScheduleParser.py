@@ -8,6 +8,7 @@ START_HOUR = 7
 END_HOUR = 24
 FAVOURITE = {"DAL","LAL"}
 WEEKDAYS = {"0": "Monday", "1": "Tuesday", "2": "Wednesday", "3": "Thursday", "4": "Friday", "5": "Saturday", "6": "Sunday"}
+TODAY = datetime.datetime.today()
 
 class Match:
     teams = ""
@@ -19,9 +20,11 @@ class Match:
 
     def print(self):
         comment = ""
-        if any(favTeam in self.teams for favTeam in FAVOURITE):
+        if (TODAY > self.dateTime): 
+            comment = "ENDED!!!"
+        elif any(favTeam in self.teams for favTeam in FAVOURITE):
             comment = "FAVOURITE!!!"
-        print(self.teams, "|", self.dateTime, "|", '{:^9}'.format(WEEKDAYS[str(self.dateTime.weekday())]), "|", comment)
+        print("|", self.teams, "|", self.dateTime, "|", '{:^9}'.format(WEEKDAYS[str(self.dateTime.weekday())]), "|", '{:^12}'.format(comment), "|")
 
 def convertDate(date):
     year = int(date[:4])
